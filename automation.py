@@ -20,7 +20,10 @@ print("\nValidation")
 
 files = [
     "hello.py",
-    "version.txt"
+    "version.txt",
+    "automation.py",
+    "README.md",
+    ".github/workflows/automation.yml"
 ]
 
 for file in files:
