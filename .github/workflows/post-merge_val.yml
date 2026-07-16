@@ -1,4 +1,4 @@
-name: Version Validation
+name: Post Merge Validation
 
 on:
   push:
@@ -17,7 +17,7 @@ jobs:
           python-version: "3.11"
 
       - name: Run Automation
-        run: python automation.py
+        run: python automation.py 
 
       - name: Upload Validation Report
         uses: actions/upload-artifact@v4
