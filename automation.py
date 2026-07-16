@@ -1,10 +1,6 @@
 import subprocess
 import os
 
-print("=" * 50)
-print("VERSION VALIDATION REPORT")
-print("=" * 50)
-
 branch = subprocess.check_output(
     ["git", "branch", "--show-current"]
 ).decode().strip()
@@ -13,23 +9,37 @@ commit = subprocess.check_output(
     ["git", "log", "-1", "--pretty=%h - %s"]
 ).decode().strip()
 
-print(f"Current Branch : {branch}")
-print(f"Latest Commit  : {commit}")
+report = []
 
-print("\nValidation")
+report.append("=" * 50)
+report.append("VERSION VALIDATION REPORT")
+report.append("=" * 50)
+report.append(f"Current Branch : {branch}")
+report.append(f"Latest Commit  : {commit}")
+report.append("")
+report.append("Validation")
 
 files = [
     "hello.py",
-    "version.txt",
     "automation.py",
-    "README.md",
+    "version.txt",
     ".github/workflows/automation.yml"
 ]
 
 for file in files:
     if os.path.exists(file):
-        print(f"✓ {file} exists")
+        report.append(f"✓ {file} exists")
     else:
-        print(f"✗ {file} missing")
+        report.append(f"✗ {file} missing")
 
-print("\nOverall Result : PASS")
+report.append("")
+report.append("Overall Result : PASS")
+
+# Print to GitHub Actions log
+for line in report:
+    print(line)
+
+# Save to file
+with open("validation_report.txt", "w") as f:
+    for line in report:
+        f.write(line + "\n")
